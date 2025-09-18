@@ -5,6 +5,7 @@ import Image from 'next/image';
 import MonacoEditor from "./components/editor/MonacoEditor";
 import SideNavbar, { SidebarItem } from "./components/navbar/sidenavbar";
 import TopNavbar from './components/navbar/topnavbar';
+import FileNavbar from './components/navbar/filesnavbar';
 
 // VS Code-style icons using Unicode symbols and SVG-like components
 const ExplorerIcon = () => (
@@ -69,8 +70,11 @@ export default function Home() {
       <TopNavbar />
       <div className="flex-1 flex">
         <SideNavbar columns={sidebarItems} activeItemId={activeItem} />
-        <div className="flex-1">
-          <MonacoEditor />
+        <div className="flex-1 flex flex-col">
+          <FileNavbar />
+          <div className="flex-1">
+            <MonacoEditor />
+          </div>
         </div>
       </div>
     </div>
