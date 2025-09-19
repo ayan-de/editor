@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function TopNavbar(): React.JSX.Element {
     return (
-        <div className="flex items-center justify-between bg-gray-800 border-b border-gray-700 h-8 w-full px-2 text-sm text-gray-300">
+        <div className="flex items-center justify-between bg-gray-800 border-b border-gray-700 h-10 w-full px-2 text-sm text-gray-300">
             {/* Left section - Menu items */}
             <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-1">
