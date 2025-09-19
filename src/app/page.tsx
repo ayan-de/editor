@@ -2,11 +2,22 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import MonacoEditor from "./components/editor/MonacoEditor";
-import SideNavbar, { SidebarItem } from "./components/navbar/sidenavbar";
-import TopNavbar from './components/navbar/topnavbar';
-import FileNavbar from './components/navbar/filesnavbar';
+import SideNavbar, { SidebarItem } from "./components/navbar/Sidenavbar";
+import TopNavbar from './components/navbar/Topnavbar';
+import FileNavbar from './components/navbar/Filesnavbar';
 import Drawer, { DrawerItem } from './components/drawer/Drawer';
+
+// Dynamically import Xterm to prevent SSR issues
+const Xterm = dynamic(() => import('./components/terminal/Xterm'), {
+  ssr: false,
+  loading: () => (
+    <div className="h-full w-full bg-[#1e1e1e] border-t border-gray-700 flex items-center justify-center">
+      <span className="text-gray-400">Loading terminal...</span>
+    </div>
+  )
+});
 
 // VS Code-style icons using Unicode symbols and SVG-like components
 const ExplorerIcon = () => (
@@ -41,7 +52,9 @@ const GitIcon = () => (
 
 export default function Home() {
   const [activeItem, setActiveItem] = useState<string>('explorer');
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(true);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState<boolean>(true);
+  const [terminalHeight, setTerminalHeight] = useState<number>(300);
 
   // Drawer items for Explorer
   const createFileIcon = (
@@ -76,7 +89,7 @@ export default function Home() {
   ];
 
   // Drawer items for Search (empty header items, search functionality will be in content)
-  const searchDrawerItems: DrawerItem[] = [];
+  // const searchDrawerItems: DrawerItem[] = [];
 
   const handleSidebarClick = (itemId: string) => {
     if (activeItem === itemId && isDrawerOpen) {
@@ -86,6 +99,20 @@ export default function Home() {
       setIsDrawerOpen(true);
     }
   };
+
+  // Handle keyboard shortcuts
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Toggle terminal with Ctrl+` (backtick)
+      if (event.ctrlKey && event.key === '`') {
+        event.preventDefault();
+        setIsTerminalOpen(!isTerminalOpen);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isTerminalOpen]);
 
   const sidebarItems: SidebarItem[] = [
     {
@@ -123,9 +150,51 @@ export default function Home() {
           onClose={() => setIsDrawerOpen(false)}
         />        
         <div className="flex-1 flex flex-col">
-          <FileNavbar />
-          <div className="flex-1">
-            <MonacoEditor />
+          <FileNavbar 
+            onToggleTerminal={() => setIsTerminalOpen(!isTerminalOpen)}
+            isTerminalOpen={isTerminalOpen}
+          />
+          <div className="flex-1 flex flex-col">
+            <div 
+              className="flex-1"
+              style={{ 
+                height: isTerminalOpen 
+                  ? `calc(100% - ${terminalHeight}px)` 
+                  : '100%' 
+              }}
+            >
+              <MonacoEditor />
+            </div>
+            {isTerminalOpen && (
+              <div 
+                className="border-t border-gray-700 relative"
+                style={{ height: `${terminalHeight}px` }}
+              >
+                <div 
+                  className="absolute top-0 left-0 right-0 h-1 cursor-row-resize bg-transparent hover:bg-blue-500 hover:bg-opacity-50 z-10"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    const startY = e.clientY;
+                    const startHeight = terminalHeight;
+                    
+                    const handleMouseMove = (e: MouseEvent) => {
+                      const diff = startY - e.clientY;
+                      const newHeight = Math.max(100, Math.min(600, startHeight + diff));
+                      setTerminalHeight(newHeight);
+                    };
+                    
+                    const handleMouseUp = () => {
+                      document.removeEventListener('mousemove', handleMouseMove);
+                      document.removeEventListener('mouseup', handleMouseUp);
+                    };
+                    
+                    document.addEventListener('mousemove', handleMouseMove);
+                    document.addEventListener('mouseup', handleMouseUp);
+                  }}
+                />
+                <Xterm />
+              </div>
+            )}
           </div>
         </div>
       </div>
