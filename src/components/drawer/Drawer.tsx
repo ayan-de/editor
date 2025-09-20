@@ -2,52 +2,55 @@
 
 import React from 'react';
 import { DrawerProps } from './types';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { X } from 'lucide-react';
 
 export default function Drawer({
   title,
   items,
   onClose,
   children,
-}: DrawerProps): React.JSX.Element {
+  isOpen = true,
+}: DrawerProps): React.JSX.Element | null {
+  if (!isOpen) return null;
+
   return (
-    <div className="flex flex-col bg-background border-r border-border h-full w-64 shadow-lg">
+    <div className="w-64 flex flex-col bg-background border-r border-border h-full shadow-sm">
       {/* Drawer Header */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/50 h-12">
-        <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">
-          {title}
-        </h3>
+      <div className="flex items-center justify-between px-4 py-2 border-b bg-muted/50 h-12">
+        <h3 className="text-sm font-medium uppercase tracking-wide">{title}</h3>
         <div className="flex items-center space-x-1">
-          {/* Header action buttons for Explorer */}
+          {/* Header action buttons */}
           {items.map((item) => (
-            <button
+            <Button
               key={item.id}
+              variant="ghost"
+              size="sm"
               onClick={item.onClick}
               title={item.tooltip || item.name}
-              className="p-1 text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors duration-200 cursor-pointer"
+              className="h-6 w-6 p-0 z-10 relative"
             >
               {item.icon}
-            </button>
+            </Button>
           ))}
           {onClose && (
-            <button
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={onClose}
-              className="p-1 text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors duration-200 cursor-pointer"
+              className="h-6 w-6 p-0 z-10 relative hover:bg-destructive/10"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-              >
-                <path d="M8 9.414L2.707 14.707 1.293 13.293 6.586 8 1.293 2.707 2.707 1.293 8 6.586l5.293-5.293 1.414 1.414L9.414 8l5.293 5.293-1.414 1.414L8 9.414z" />
-              </svg>
-            </button>
+              <X className="h-4 w-4" />
+            </Button>
           )}
         </div>
       </div>
 
+      <Separator />
+
       {/* Drawer Content */}
-      <div className="flex-1 p-2 overflow-y-auto w-full">
+      <div className="flex-1 p-2 overflow-y-auto">
         {children ? (
           children
         ) : (

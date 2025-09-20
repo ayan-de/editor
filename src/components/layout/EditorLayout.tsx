@@ -65,15 +65,14 @@ export default function EditorLayout() {
         <TopNavbar />
         <div className="flex-1 flex">
           <SideNavbar columns={sidebarItems} activeItemId={activeItem} />
-          {isDrawerOpen && (
-            <Drawer
-              title={getDrawerTitle(activeItem)}
-              items={getDrawerItems(activeItem)}
-              onClose={() => setIsDrawerOpen(false)}
-            >
-              {getDrawerContent(activeItem)}
-            </Drawer>
-          )}
+          <Drawer
+            title={getDrawerTitle(activeItem)}
+            items={getDrawerItems(activeItem)}
+            onClose={() => setIsDrawerOpen(false)}
+            isOpen={isDrawerOpen}
+          >
+            {getDrawerContent(activeItem)}
+          </Drawer>
           <div className="flex-1 flex flex-col">
             <FileNavbar
               onToggleTerminal={() => setIsTerminalOpen(!isTerminalOpen)}

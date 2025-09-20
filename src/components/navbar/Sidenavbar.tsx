@@ -2,31 +2,35 @@
 
 import React from 'react';
 import { SideNavbarProps } from './types';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 export default function SideNavbar({
   columns,
   activeItemId,
 }: SideNavbarProps): React.JSX.Element {
   return (
-    <div className="flex flex-col bg-gray-100 border-r border-gray-700 h-full w-12">
+    <div className="flex flex-col bg-muted border-r border-border h-full w-12">
       {columns.map((item) => (
-        <button
+        <Button
           key={item.id}
+          variant={
+            activeItemId === item.id || item.isActive ? 'secondary' : 'ghost'
+          }
+          size="sm"
           onClick={item.onClick}
           title={item.tooltip || item.name}
-          className={`
-            flex items-center justify-center h-12 w-12 text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer
-            ${
-              activeItemId === item.id || item.isActive
-                ? 'bg-gray-500 text-white border-l-2 border-blue-500'
-                : 'hover:bg-gray-500'
-            }
-          `}
+          className={cn(
+            'h-12 w-12 p-0 rounded-none border-l-2 border-transparent transition-all duration-200',
+            activeItemId === item.id || item.isActive
+              ? 'border-l-primary bg-secondary text-secondary-foreground'
+              : 'hover:bg-accent hover:text-accent-foreground'
+          )}
         >
           <div className="w-6 h-6 flex items-center justify-center">
             {item.icon}
           </div>
-        </button>
+        </Button>
       ))}
     </div>
   );
