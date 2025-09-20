@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import React from 'react';
 
 export default function GitDrawerContent() {
@@ -25,9 +26,7 @@ export default function GitDrawerContent() {
           className="w-full p-2 text-sm bg-input border border-border rounded focus:outline-none focus:ring-1 focus:ring-ring"
         />
       </div>
-      <button className="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm py-2 px-3 rounded transition-colors">
-        Commit Changes
-      </button>
+      <Button>Commit Changes</Button>
     </div>
   );
 }

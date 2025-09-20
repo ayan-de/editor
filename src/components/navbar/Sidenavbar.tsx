@@ -21,7 +21,7 @@ export default function SideNavbar({
           onClick={item.onClick}
           title={item.tooltip || item.name}
           className={cn(
-            'h-12 w-12 p-0 rounded-none border-l-2 border-transparent transition-all duration-200',
+            'h-12 w-12 p-0 rounded-none border-l-2 border-transparent transition-all duration-200 cursor-pointer',
             activeItemId === item.id || item.isActive
               ? 'border-l-primary bg-secondary text-secondary-foreground'
               : 'hover:bg-accent hover:text-accent-foreground'

@@ -13,7 +13,7 @@ export default function PlaybackControls(): React.JSX.Element {
     <div className="flex items-center space-x-1 border-l border-border pl-4">
       <Button
         onClick={play}
-        variant="ghost"
+        // variant="ghost"
         size="sm"
         className={cn(
           'h-8 w-8 p-0',
@@ -27,7 +27,7 @@ export default function PlaybackControls(): React.JSX.Element {
       </Button>
       <Button
         onClick={pause}
-        variant="ghost"
+        variant="secondary"
         size="sm"
         className={cn(
           'h-8 w-8 p-0',
@@ -41,7 +41,7 @@ export default function PlaybackControls(): React.JSX.Element {
       </Button>
       <Button
         onClick={stop}
-        variant="ghost"
+        variant="destructive"
         size="sm"
         className={cn(
           'h-8 w-8 p-0',

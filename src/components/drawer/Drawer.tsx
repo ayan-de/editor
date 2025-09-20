@@ -25,23 +25,23 @@ export default function Drawer({
           {items.map((item) => (
             <Button
               key={item.id}
-              variant="ghost"
+              // variant="ghost"
               size="sm"
               onClick={item.onClick}
               title={item.tooltip || item.name}
-              className="h-6 w-6 p-0 z-10 relative"
+              // className="h-6 w-6 p-0 z-10 relative"
             >
               {item.icon}
             </Button>
           ))}
           {onClose && (
             <Button
-              variant="ghost"
+              variant="secondary"
               size="sm"
               onClick={onClose}
-              className="h-6 w-6 p-0 z-10 relative hover:bg-destructive/10"
+              // className="h-6 w-6 p-0 z-10 relative hover:bg-destructive/10"
             >
-              <X className="h-4 w-4" />
+              <X className="h-1 w-1" />
             </Button>
           )}
         </div>

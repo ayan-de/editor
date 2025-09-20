@@ -1,36 +1,12 @@
 import React from 'react';
-import Image from 'next/image';
 import { SidebarItem } from './types';
+import { Files, GitMerge, Search } from 'lucide-react';
 
-const ExplorerIcon = () => (
-  <Image
-    src="/file-copy-svgrepo-com.svg"
-    alt="Explorer"
-    width={36}
-    height={36}
-    className="w-8 h-8"
-  />
-);
+const ExplorerIcon = () => <Files className="w-6 h-6" />;
 
-const SearchIcon = () => (
-  <Image
-    src="/search-alt-svgrepo-com.svg"
-    alt="Search"
-    width={36}
-    height={36}
-    className="w-8 h-8"
-  />
-);
+const SearchIcon = () => <Search className="w-6 h-6" />;
 
-const GitIcon = () => (
-  <Image
-    src="/git-merge-svgrepo-com.svg"
-    alt="Git"
-    width={36}
-    height={36}
-    className="w-8 h-8"
-  />
-);
+const GitIcon = () => <GitMerge className="w-6 h-6" />;
 
 export const sidebarItems: SidebarItem[] = [
   {

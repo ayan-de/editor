@@ -1,28 +1,19 @@
 import React from 'react';
 import { DrawerItem } from '../types';
-import Image from 'next/image';
+import { File, Folder } from 'lucide-react';
 
 export const explorerHeaderOptions: DrawerItem[] = [
   {
     id: 'create-file',
     name: 'New File',
-    icon: (
-      <Image src={'./icons/add-file.svg'} width={23} height={23} alt="File" />
-    ),
+    icon: <File />,
     onClick: () => console.log('Create new file'),
     tooltip: 'New File',
   },
   {
     id: 'create-folder',
     name: 'New Folder',
-    icon: (
-      <Image
-        src={'./icons/add-folder.svg'}
-        width={23}
-        height={23}
-        alt="Folder"
-      />
-    ),
+    icon: <Folder />,
     onClick: () => console.log('Create new folder'),
     tooltip: 'New Folder',
   },
