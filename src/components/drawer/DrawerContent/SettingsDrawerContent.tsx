@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useTheme } from '@/contexts/ThemeContext';
+import { THEMES } from '@/types/theme';
 export default function SettingsDrawerContent() {
   const { theme, setTheme } = useTheme();
   return (
@@ -16,9 +17,11 @@ export default function SettingsDrawerContent() {
           <SelectValue placeholder="Editor Theme" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="light">Light</SelectItem>
-          <SelectItem value="vs-dark">Dark</SelectItem>
-          <SelectItem value="hc-black">Black</SelectItem>
+          {THEMES.map((t) => (
+            <SelectItem key={t} value={t}>
+              {t}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>

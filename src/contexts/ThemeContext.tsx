@@ -1,5 +1,6 @@
 'use client';
 
+import { Theme } from '@/types/theme';
 import {
   createContext,
   ReactNode,
@@ -7,8 +8,6 @@ import {
   useEffect,
   useState,
 } from 'react';
-
-type Theme = 'light' | 'vs-dark' | 'hc-black';
 
 interface ThemeContextType {
   theme: Theme;
