@@ -9,7 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Palette, Moon, Sun } from 'lucide-react';
 import { useTweakCNTheme } from '@/contexts/TweakCNThemeContext';
-import { ThemePreview } from './ThemePreview';
+import { ThemePreview } from '../ThemePreview';
 
 interface TweakCNThemeSelectorProps {
   // No props needed - uses its own context

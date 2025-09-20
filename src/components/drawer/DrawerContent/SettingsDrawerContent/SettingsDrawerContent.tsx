@@ -1,6 +1,6 @@
 import React from 'react';
-import { EditorThemeSelector } from './EditorThemeSelector';
-import { TweakCNThemeSelector } from './TweakCNThemeSelector';
+import { EditorThemeSelector } from './Selectors/EditorThemeSelector';
+import { TweakCNThemeSelector } from './Selectors/TweakCNThemeSelector';
 
 export default function SettingsDrawerContent() {
   return (
