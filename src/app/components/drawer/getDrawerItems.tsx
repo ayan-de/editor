@@ -1,8 +1,8 @@
 import React from 'react';
 import { DrawerItem } from './types';
-import explorerHeaderOptions from './HeaderOptions/ExplorerHeaderOptions';
-import { searchHeaderOptions } from './HeaderOptions/SearchHeaderOptions';
-import { gitHeaderOptions } from './HeaderOptions/GitHeaderOptions';
+import explorerHeaderOptions from './DrawerHeaderOptions/ExplorerHeaderOptions';
+import { searchHeaderOptions } from './DrawerHeaderOptions/SearchHeaderOptions';
+import { gitHeaderOptions } from './DrawerHeaderOptions/GitHeaderOptions';
 
 export function getDrawerItems(activeItem: string): DrawerItem[] {
   switch (activeItem) {
