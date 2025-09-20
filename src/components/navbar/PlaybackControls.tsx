@@ -2,45 +2,57 @@
 
 import React from 'react';
 import { usePlayback } from '@/contexts/PlaybackContext';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { Play, Pause, Square } from 'lucide-react';
 
 export default function PlaybackControls(): React.JSX.Element {
   const { playbackState, play, pause, stop } = usePlayback();
 
   return (
-    <div className="flex items-center space-x-1 border-l border-gray-600 pl-4">
-      <button
+    <div className="flex items-center space-x-1 border-l border-border pl-4">
+      <Button
         onClick={play}
-        className={`p-1 hover:bg-gray-700 rounded transition-colors duration-200 cursor-pointer ${
-          playbackState === 'play' ? 'bg-green-600 text-white' : ''
-        }`}
+        variant="ghost"
+        size="sm"
+        className={cn(
+          'h-8 w-8 p-0',
+          playbackState === 'play'
+            ? 'bg-green-600 text-white hover:bg-green-700'
+            : ''
+        )}
         title="Play"
       >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-          <path d="M3 2v12l10-6L3 2z" />
-        </svg>
-      </button>
-      <button
+        <Play className="h-4 w-4" />
+      </Button>
+      <Button
         onClick={pause}
-        className={`p-1 hover:bg-gray-700 rounded transition-colors duration-200 cursor-pointer ${
-          playbackState === 'pause' ? 'bg-red-600 text-white' : ''
-        }`}
+        variant="ghost"
+        size="sm"
+        className={cn(
+          'h-8 w-8 p-0',
+          playbackState === 'pause'
+            ? 'bg-red-600 text-white hover:bg-red-700'
+            : ''
+        )}
         title="Pause"
       >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-          <path d="M5 3h2v10H5V3zm4 0h2v10H9V3z" />
-        </svg>
-      </button>
-      <button
+        <Pause className="h-4 w-4" />
+      </Button>
+      <Button
         onClick={stop}
-        className={`p-1 hover:bg-gray-700 rounded transition-colors duration-200 cursor-pointer ${
-          playbackState === 'stop' ? 'bg-blue-600 text-white' : ''
-        }`}
+        variant="ghost"
+        size="sm"
+        className={cn(
+          'h-8 w-8 p-0',
+          playbackState === 'stop'
+            ? 'bg-blue-600 text-white hover:bg-blue-700'
+            : ''
+        )}
         title="Stop"
       >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-          <path d="M4 4h8v8H4V4z" />
-        </svg>
-      </button>
+        <Square className="h-4 w-4" />
+      </Button>
     </div>
   );
 }

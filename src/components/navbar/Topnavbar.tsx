@@ -3,10 +3,11 @@
 import Image from 'next/image';
 import React from 'react';
 import PlaybackControls from './PlaybackControls';
+import { Button } from '@/components/ui/button';
 
 export default function TopNavbar(): React.JSX.Element {
   return (
-    <div className="flex items-center justify-between bg-gray-800 border-b border-gray-700 h-10 w-full px-2 text-sm text-gray-300">
+    <div className="flex items-center justify-between bg-muted border-b border-border h-10 w-full px-2 text-sm">
       {/* Left section - Menu items */}
       <div className="flex items-center space-x-4">
         <div className="flex items-center space-x-1">
@@ -17,31 +18,47 @@ export default function TopNavbar(): React.JSX.Element {
             height={30}
             className="w-6 h-6"
           />
-          <button className="px-2 py-1 hover:bg-gray-700 rounded transition-colors duration-200 cursor-pointer">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 px-2 text-xs font-normal"
+          >
             Run
-          </button>
-          <button className="px-2 py-1 hover:bg-gray-700 rounded transition-colors duration-200 cursor-pointer">
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 px-2 text-xs font-normal"
+          >
             Terminal
-          </button>
-          <button className="px-2 py-1 hover:bg-gray-700 rounded transition-colors duration-200 cursor-pointer">
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 px-2 text-xs font-normal"
+          >
             Help
-          </button>
+          </Button>
         </div>
         <PlaybackControls />
       </div>
 
       {/* Center section - Project title */}
       <div className="flex-1 flex justify-center">
-        <span className="text-gray-400 text-xs">Editor</span>
+        <span className="text-muted-foreground text-xs">Editor</span>
       </div>
 
       {/* Right section - Window controls */}
       <div className="flex items-center space-x-1">
-        <button className="w-6 h-6 flex items-center justify-center hover:bg-gray-700 transition-colors duration-200 cursor-pointer">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="w-6 h-6 p-0 hover:bg-accent"
+        >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
             <path d="M6 0L0 6h12L6 0z" />
           </svg>
-        </button>
+        </Button>
       </div>
     </div>
   );
