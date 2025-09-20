@@ -12,15 +12,14 @@ export interface DrawerItem {
 }
 
 interface DrawerProps {
-  isOpen: boolean;
+  isOpen?: boolean; // Made optional since drawer will always be open
   title: string;
   items: DrawerItem[];
   onClose?: () => void;
+  children?: React.ReactNode; // Custom content for the drawer
 }
 
-export default function Drawer({ isOpen, title, items, onClose }: DrawerProps): React.JSX.Element {
-  if (!isOpen) return <></>;
-
+export default function Drawer({ title, items, onClose, children }: DrawerProps): React.JSX.Element {
   return (
     <div className="flex flex-col bg-background border-r border-border h-full w-64 shadow-lg">
       {/* Drawer Header */}
@@ -55,22 +54,26 @@ export default function Drawer({ isOpen, title, items, onClose }: DrawerProps): 
 
       {/* Drawer Content */}
       <div className="flex-1 p-2 overflow-y-auto">
-        {/* File tree or content will go here */}
-        <div className="text-sm text-muted-foreground">
-          <p className="p-2">No files in workspace</p>
-          <div className="flex items-center p-2 hover:bg-accent rounded cursor-pointer">
-            <span className="mr-2">📁</span>
-            <span>src</span>
+        {children ? (
+          children
+        ) : (
+          /* Default content - File tree placeholder */
+          <div className="text-sm text-muted-foreground">
+            <p className="p-2">No files in workspace</p>
+            <div className="flex items-center p-2 hover:bg-accent rounded cursor-pointer">
+              <span className="mr-2">📁</span>
+              <span>src</span>
+            </div>
+            <div className="flex items-center p-2 ml-4 hover:bg-accent rounded cursor-pointer">
+              <span className="mr-2">📄</span>
+              <span>index.js</span>
+            </div>
+            <div className="flex items-center p-2 ml-4 hover:bg-accent rounded cursor-pointer">
+              <span className="mr-2">📄</span>
+              <span>App.tsx</span>
+            </div>
           </div>
-          <div className="flex items-center p-2 ml-4 hover:bg-accent rounded cursor-pointer">
-            <span className="mr-2">📄</span>
-            <span>index.js</span>
-          </div>
-          <div className="flex items-center p-2 ml-4 hover:bg-accent rounded cursor-pointer">
-            <span className="mr-2">📄</span>
-            <span>App.tsx</span>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
