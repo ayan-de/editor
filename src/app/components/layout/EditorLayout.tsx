@@ -11,11 +11,8 @@ import { getDrawerItems } from '../drawer/getDrawerItems';
 import { getDrawerTitle } from '../drawer/getDrawerTitle';
 import { getDrawerContent } from '../drawer/getDrawerContent';
 import { sidebarItems as defaultSidebarItems } from '../navbar/sidebarItems';
-import {
-  usePlayback,
-  getBorderColorClass,
-} from '../../contexts/PlaybackContext';
 import { SidebarItem } from '../navbar/types';
+import PlaybackBorderRing from './PlaybackBorderRing';
 
 // Dynamically import Xterm to prevent SSR issues
 const Xterm = dynamic(() => import('../terminal/Xterm'), {
@@ -32,10 +29,6 @@ export default function EditorLayout() {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(true);
   const [isTerminalOpen, setIsTerminalOpen] = useState<boolean>(true);
   const [terminalHeight, setTerminalHeight] = useState<number>(300);
-
-  // Get playback state for border styling
-  const { playbackState } = usePlayback();
-  const borderColorClass = getBorderColorClass(playbackState);
 
   const handleSidebarClick = (itemId: string) => {
     if (activeItem === itemId && isDrawerOpen) {
@@ -66,73 +59,74 @@ export default function EditorLayout() {
   }));
 
   return (
-    <div
-      className={`h-screen w-full flex flex-col border-4 ${borderColorClass} transition-colors duration-300`}
-    >
-      <TopNavbar />
-      <div className="flex-1 flex">
-        <SideNavbar columns={sidebarItems} activeItemId={activeItem} />
-        {isDrawerOpen && (
-          <Drawer
-            title={getDrawerTitle(activeItem)}
-            items={getDrawerItems(activeItem)}
-            onClose={() => setIsDrawerOpen(false)}
-          >
-            {getDrawerContent(activeItem)}
-          </Drawer>
-        )}
-        <div className="flex-1 flex flex-col">
-          <FileNavbar
-            onToggleTerminal={() => setIsTerminalOpen(!isTerminalOpen)}
-            isTerminalOpen={isTerminalOpen}
-          />
-          <div className="flex-1 flex flex-col">
-            <div
-              className="flex-1"
-              style={{
-                height: isTerminalOpen
-                  ? `calc(100% - ${terminalHeight}px)`
-                  : '100%',
-              }}
+    <div className="h-screen w-full flex flex-col relative">
+      <PlaybackBorderRing />
+      <div className="h-full w-full flex flex-col p-1">
+        <TopNavbar />
+        <div className="flex-1 flex">
+          <SideNavbar columns={sidebarItems} activeItemId={activeItem} />
+          {isDrawerOpen && (
+            <Drawer
+              title={getDrawerTitle(activeItem)}
+              items={getDrawerItems(activeItem)}
+              onClose={() => setIsDrawerOpen(false)}
             >
-              <MonacoEditor />
-            </div>
-            {isTerminalOpen && (
+              {getDrawerContent(activeItem)}
+            </Drawer>
+          )}
+          <div className="flex-1 flex flex-col">
+            <FileNavbar
+              onToggleTerminal={() => setIsTerminalOpen(!isTerminalOpen)}
+              isTerminalOpen={isTerminalOpen}
+            />
+            <div className="flex-1 flex flex-col">
               <div
-                className="border-t border-gray-700 relative"
-                style={{ height: `${terminalHeight}px` }}
+                className="flex-1"
+                style={{
+                  height: isTerminalOpen
+                    ? `calc(100% - ${terminalHeight}px)`
+                    : '100%',
+                }}
               >
-                <div
-                  className="absolute top-0 left-0 right-0 h-1 cursor-row-resize bg-transparent hover:bg-blue-500 hover:bg-opacity-50 z-10"
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    const startY = e.clientY;
-                    const startHeight = terminalHeight;
-
-                    const handleMouseMove = (e: MouseEvent) => {
-                      const diff = startY - e.clientY;
-                      const newHeight = Math.max(
-                        100,
-                        Math.min(600, startHeight + diff)
-                      );
-                      setTerminalHeight(newHeight);
-                    };
-
-                    const handleMouseUp = () => {
-                      document.removeEventListener(
-                        'mousemove',
-                        handleMouseMove
-                      );
-                      document.removeEventListener('mouseup', handleMouseUp);
-                    };
-
-                    document.addEventListener('mousemove', handleMouseMove);
-                    document.addEventListener('mouseup', handleMouseUp);
-                  }}
-                />
-                <Xterm />
+                <MonacoEditor />
               </div>
-            )}
+              {isTerminalOpen && (
+                <div
+                  className="border-t border-gray-700 relative"
+                  style={{ height: `${terminalHeight}px` }}
+                >
+                  <div
+                    className="absolute top-0 left-0 right-0 h-1 cursor-row-resize bg-transparent hover:bg-blue-500 hover:bg-opacity-50 z-10"
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      const startY = e.clientY;
+                      const startHeight = terminalHeight;
+
+                      const handleMouseMove = (e: MouseEvent) => {
+                        const diff = startY - e.clientY;
+                        const newHeight = Math.max(
+                          100,
+                          Math.min(600, startHeight + diff)
+                        );
+                        setTerminalHeight(newHeight);
+                      };
+
+                      const handleMouseUp = () => {
+                        document.removeEventListener(
+                          'mousemove',
+                          handleMouseMove
+                        );
+                        document.removeEventListener('mouseup', handleMouseUp);
+                      };
+
+                      document.addEventListener('mousemove', handleMouseMove);
+                      document.addEventListener('mouseup', handleMouseUp);
+                    }}
+                  />
+                  <Xterm />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

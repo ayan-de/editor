@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function SearchDrawerContent() {
   return (
-    <div className="p-2">
+    <div className="w-full">
       <div className="mb-4">
         <input
           type="text"
@@ -17,7 +17,10 @@ export default function SearchDrawerContent() {
           className="w-full p-2 text-sm bg-input border border-border rounded focus:outline-none focus:ring-1 focus:ring-ring"
         />
       </div>
-      <div className="text-sm text-muted-foreground">
+      <div className="text-xs text-muted-foreground uppercase tracking-wide mb-2">
+        Results
+      </div>
+      <div className="w-full text-sm text-muted-foreground">
         <p className="p-2">No results found</p>
       </div>
     </div>
