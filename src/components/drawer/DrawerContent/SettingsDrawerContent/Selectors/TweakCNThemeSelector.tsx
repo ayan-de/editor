@@ -29,12 +29,12 @@ export function TweakCNThemeSelector({}: TweakCNThemeSelectorProps) {
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <Palette className="h-4 w-4" />
-        <h3 className="text-sm font-medium">TweakCN Themes</h3>
-        {isActive && (
+        <h3 className="text-sm font-medium">Themes</h3>
+        {/* {isActive && (
           <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">
             Active
           </span>
-        )}
+        )} */}
       </div>
 
       <Select
@@ -52,11 +52,11 @@ export function TweakCNThemeSelector({}: TweakCNThemeSelectorProps) {
               <div className="flex items-center justify-between w-full">
                 <div className="flex flex-col items-start">
                   <span className="font-medium">{themeData.name}</span>
-                  <span className="text-xs text-muted-foreground">
+                  {/* <span className="text-xs text-muted-foreground">
                     {themeData.description}
-                  </span>
+                  </span> */}
                 </div>
-                <div className="flex flex-col gap-1">
+                {/* <div className="flex flex-col gap-1">
                   <ThemePreview
                     themeId={themeId as keyof typeof availableThemes}
                     isDarkMode={false}
@@ -67,7 +67,7 @@ export function TweakCNThemeSelector({}: TweakCNThemeSelectorProps) {
                     isDarkMode={true}
                     size="sm"
                   />
-                </div>
+                </div> */}
               </div>
             </SelectItem>
           ))}
@@ -75,7 +75,7 @@ export function TweakCNThemeSelector({}: TweakCNThemeSelectorProps) {
       </Select>
 
       {/* Dark Mode Toggle for Active TweakCN Theme */}
-      {isActive && (
+      {/* {isActive && (
         <div className="space-y-2">
           <Button
             variant="outline"
@@ -96,7 +96,6 @@ export function TweakCNThemeSelector({}: TweakCNThemeSelectorProps) {
             )}
           </Button>
 
-          {/* Current Status */}
           <div className="text-xs text-muted-foreground px-2 space-y-1">
             <div>
               Active theme:{' '}
@@ -112,7 +111,7 @@ export function TweakCNThemeSelector({}: TweakCNThemeSelectorProps) {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

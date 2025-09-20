@@ -39,9 +39,9 @@ export function EditorThemeSelector({}: EditorThemeSelectorProps) {
             <SelectItem key={themeId} value={themeId}>
               <div className="flex flex-col items-start">
                 <span>{getDisplayName(themeId)}</span>
-                <span className="text-xs text-muted-foreground">
+                {/* <span className="text-xs text-muted-foreground">
                   Classic editor theme
-                </span>
+                </span> */}
               </div>
             </SelectItem>
           ))}
@@ -49,9 +49,9 @@ export function EditorThemeSelector({}: EditorThemeSelectorProps) {
       </Select>
 
       {/* Current theme indicator */}
-      <div className="text-xs text-muted-foreground px-2">
+      {/* <div className="text-xs text-muted-foreground px-2">
         Active: <span className="font-medium">{getDisplayName(theme)}</span>
-      </div>
+      </div> */}
     </div>
   );
 }

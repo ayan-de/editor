@@ -4,8 +4,13 @@ import Image from 'next/image';
 import React from 'react';
 import PlaybackControls from './PlaybackControls';
 import { Button } from '@/components/ui/button';
+import { Moon, Sun } from 'lucide-react';
+import { useTweakCNTheme } from '@/contexts/TweakCNThemeContext';
 
 export default function TopNavbar(): React.JSX.Element {
+  const { isActive, isDarkMode, toggleDarkMode, availableThemes, theme } =
+    useTweakCNTheme();
+
   return (
     <div className="flex items-center justify-between bg-muted border-b border-border h-10 w-full px-2 text-sm">
       {/* Left section - Menu items */}
@@ -50,15 +55,26 @@ export default function TopNavbar(): React.JSX.Element {
 
       {/* Right section - Window controls */}
       <div className="flex items-center space-x-1">
-        <Button
-          variant="ghost"
-          size="sm"
-          className="w-6 h-6 p-0 hover:bg-accent"
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
-            <path d="M6 0L0 6h12L6 0z" />
-          </svg>
-        </Button>
+        {isActive && (
+          <div className="space-y-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={toggleDarkMode}
+              className="w-full justify-start cursor-pointer"
+            >
+              {isDarkMode ? (
+                <>
+                  <Sun />
+                </>
+              ) : (
+                <>
+                  <Moon />
+                </>
+              )}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
