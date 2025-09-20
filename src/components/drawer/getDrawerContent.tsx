@@ -6,11 +6,11 @@ import GitDrawerContent from './DrawerContent/GitDrawerContent';
 export function getDrawerContent(activeItem: string): React.ReactNode {
   switch (activeItem) {
     case 'explorer':
-      // return <ExplorerDrawerContent />;
-      return <GitDrawerContent />;
+      return <ExplorerDrawerContent />;
+    // return <GitDrawerContent />;
     case 'search':
-      // return <SearchDrawerContent />;
-      return <GitDrawerContent />;
+      return <SearchDrawerContent />;
+    // return <GitDrawerContent />;
     case 'git':
       return <GitDrawerContent />;
     default:

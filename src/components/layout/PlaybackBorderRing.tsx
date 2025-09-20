@@ -1,10 +1,7 @@
 'use client';
 
 import React from 'react';
-import {
-  usePlayback,
-  getBorderColorClass,
-} from '../../contexts/PlaybackContext';
+import { usePlayback, getBorderColorClass } from '@/contexts/PlaybackContext';
 
 interface PlaybackBorderRingProps {
   className?: string;

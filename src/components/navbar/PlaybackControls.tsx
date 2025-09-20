@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { usePlayback } from '../../contexts/PlaybackContext';
+import { usePlayback } from '@/contexts/PlaybackContext';
 
 export default function PlaybackControls(): React.JSX.Element {
   const { playbackState, play, pause, stop } = usePlayback();
