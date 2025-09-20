@@ -3,14 +3,17 @@
 import React from 'react';
 import { PlaybackProvider } from '@/contexts/PlaybackContext';
 import EditorLayout from '@/components/layout/EditorLayout';
-import { ThemeProvider } from '@/contexts/ThemeContext';
+import { EditorThemeProvider } from '@/contexts/EditorThemeContext';
+import { TweakCNThemeProvider } from '@/contexts/TweakCNThemeContext';
 
 export default function Home() {
   return (
     <PlaybackProvider>
-      <ThemeProvider>
-        <EditorLayout />
-      </ThemeProvider>
+      <EditorThemeProvider>
+        <TweakCNThemeProvider>
+          <EditorLayout />
+        </TweakCNThemeProvider>
+      </EditorThemeProvider>
     </PlaybackProvider>
   );
 }
