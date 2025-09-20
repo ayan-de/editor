@@ -12,7 +12,7 @@ export default function Drawer({
   return (
     <div className="flex flex-col bg-background border-r border-border h-full w-64 shadow-lg">
       {/* Drawer Header */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/50">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-border bg-muted/50 h-12">
         <h3 className="text-sm font-medium text-foreground uppercase tracking-wide">
           {title}
         </h3>
