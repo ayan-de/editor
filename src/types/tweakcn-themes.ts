@@ -241,7 +241,8 @@ export const TWEAKCN_THEMES: Record<string, TweakCNTheme> = {
       '--sidebar-border': 'oklch(0.4313 0 0)',
       '--sidebar-ring': 'oklch(0.5016 0.1887 27.4816)',
       '--font-sans': 'Oxanium, sans-serif',
-      '--font-serif': 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+      '--font-serif':
+        'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
       '--font-mono': 'Source Code Pro, monospace',
       '--shadow-color': 'hsl(0 0% 0%)',
       '--shadow-opacity': '0.4',
@@ -253,11 +254,16 @@ export const TWEAKCN_THEMES: Record<string, TweakCNTheme> = {
       '--spacing': '0.25rem',
       '--shadow-2xs': '0px 2px 4px 0px hsl(0 0% 0% / 0.20)',
       '--shadow-xs': '0px 2px 4px 0px hsl(0 0% 0% / 0.20)',
-      '--shadow-sm': '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 1px 2px -1px hsl(0 0% 0% / 0.40)',
-      '--shadow': '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 1px 2px -1px hsl(0 0% 0% / 0.40)',
-      '--shadow-md': '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 2px 4px -1px hsl(0 0% 0% / 0.40)',
-      '--shadow-lg': '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 4px 6px -1px hsl(0 0% 0% / 0.40)',
-      '--shadow-xl': '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 8px 10px -1px hsl(0 0% 0% / 0.40)',
+      '--shadow-sm':
+        '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 1px 2px -1px hsl(0 0% 0% / 0.40)',
+      '--shadow':
+        '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 1px 2px -1px hsl(0 0% 0% / 0.40)',
+      '--shadow-md':
+        '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 2px 4px -1px hsl(0 0% 0% / 0.40)',
+      '--shadow-lg':
+        '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 4px 6px -1px hsl(0 0% 0% / 0.40)',
+      '--shadow-xl':
+        '0px 2px 4px 0px hsl(0 0% 0% / 0.40), 0px 8px 10px -1px hsl(0 0% 0% / 0.40)',
       '--shadow-2xl': '0px 2px 4px 0px hsl(0 0% 0% / 1.00)',
       '--tracking-normal': '0em',
     },
@@ -296,7 +302,8 @@ export const TWEAKCN_THEMES: Record<string, TweakCNTheme> = {
       '--sidebar-border': 'oklch(0.4091 0 0)',
       '--sidebar-ring': 'oklch(0.6083 0.2090 27.0276)',
       '--font-sans': 'Oxanium, sans-serif',
-      '--font-serif': 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+      '--font-serif':
+        'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
       '--font-mono': 'Source Code Pro, monospace',
       '--shadow-color': 'hsl(0 0% 0%)',
       '--shadow-opacity': '0.6',
@@ -308,11 +315,16 @@ export const TWEAKCN_THEMES: Record<string, TweakCNTheme> = {
       '--spacing': '0.25rem',
       '--shadow-2xs': '0px 2px 5px 0px hsl(0 0% 0% / 0.30)',
       '--shadow-xs': '0px 2px 5px 0px hsl(0 0% 0% / 0.30)',
-      '--shadow-sm': '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 1px 2px -1px hsl(0 0% 0% / 0.60)',
-      '--shadow': '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 1px 2px -1px hsl(0 0% 0% / 0.60)',
-      '--shadow-md': '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 2px 4px -1px hsl(0 0% 0% / 0.60)',
-      '--shadow-lg': '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 4px 6px -1px hsl(0 0% 0% / 0.60)',
-      '--shadow-xl': '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 8px 10px -1px hsl(0 0% 0% / 0.60)',
+      '--shadow-sm':
+        '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 1px 2px -1px hsl(0 0% 0% / 0.60)',
+      '--shadow':
+        '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 1px 2px -1px hsl(0 0% 0% / 0.60)',
+      '--shadow-md':
+        '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 2px 4px -1px hsl(0 0% 0% / 0.60)',
+      '--shadow-lg':
+        '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 4px 6px -1px hsl(0 0% 0% / 0.60)',
+      '--shadow-xl':
+        '0px 2px 5px 0px hsl(0 0% 0% / 0.60), 0px 8px 10px -1px hsl(0 0% 0% / 0.60)',
       '--shadow-2xl': '0px 2px 5px 0px hsl(0 0% 0% / 1.50)',
       '--tracking-normal': '0em',
     },
