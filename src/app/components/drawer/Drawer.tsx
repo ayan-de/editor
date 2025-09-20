@@ -1,25 +1,14 @@
 'use client';
 
 import React from 'react';
+import { DrawerProps } from './types';
 
-// TypeScript interfaces for drawer items
-export interface DrawerItem {
-  id: string;
-  name: string;
-  icon: React.ReactNode;
-  onClick: () => void;
-  tooltip?: string;
-}
-
-interface DrawerProps {
-  isOpen?: boolean; // Made optional since drawer will always be open
-  title: string;
-  items: DrawerItem[];
-  onClose?: () => void;
-  children?: React.ReactNode; // Custom content for the drawer
-}
-
-export default function Drawer({ title, items, onClose, children }: DrawerProps): React.JSX.Element {
+export default function Drawer({
+  title,
+  items,
+  onClose,
+  children,
+}: DrawerProps): React.JSX.Element {
   return (
     <div className="flex flex-col bg-background border-r border-border h-full w-64 shadow-lg">
       {/* Drawer Header */}
@@ -44,8 +33,13 @@ export default function Drawer({ title, items, onClose, children }: DrawerProps)
               onClick={onClose}
               className="p-1 text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors duration-200 cursor-pointer"
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                <path d="M8 9.414L2.707 14.707 1.293 13.293 6.586 8 1.293 2.707 2.707 1.293 8 6.586l5.293-5.293 1.414 1.414L9.414 8l5.293 5.293-1.414 1.414L8 9.414z"/>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+              >
+                <path d="M8 9.414L2.707 14.707 1.293 13.293 6.586 8 1.293 2.707 2.707 1.293 8 6.586l5.293-5.293 1.414 1.414L9.414 8l5.293 5.293-1.414 1.414L8 9.414z" />
               </svg>
             </button>
           )}

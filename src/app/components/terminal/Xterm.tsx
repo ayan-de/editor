@@ -33,14 +33,15 @@ export default function Xterm() {
           brightBlue: '#3b8eea',
           brightMagenta: '#d670d6',
           brightCyan: '#29b8db',
-          brightWhite: '#ffffff'
+          brightWhite: '#ffffff',
         },
         fontSize: 14,
-        fontFamily: 'JetBrains Mono, Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
+        fontFamily:
+          'JetBrains Mono, Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace',
         cursorBlink: true,
         cursorStyle: 'bar',
         rows: 15,
-        cols: 80
+        cols: 80,
       });
 
       // Create fit addon
@@ -64,7 +65,8 @@ export default function Xterm() {
       terminal.onData((data) => {
         if (data === '\r') {
           terminal.write('\r\n$ ');
-        } else if (data === '\u007f') { // Backspace
+        } else if (data === '\u007f') {
+          // Backspace
           terminal.write('\b \b');
         } else {
           terminal.write(data);
@@ -95,10 +97,7 @@ export default function Xterm() {
       <div className="h-8 bg-[#2d2d30] border-b border-gray-700 flex items-center px-3">
         <span className="text-sm text-gray-300 font-medium">Terminal</span>
       </div>
-      <div 
-        ref={terminalRef} 
-        className="h-[calc(100%-2rem)] p-2"
-      />
+      <div ref={terminalRef} className="h-[calc(100%-2rem)] p-2" />
     </div>
   );
 }
