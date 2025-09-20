@@ -2,6 +2,7 @@ import React from 'react';
 import ExplorerDrawerContent from './DrawerContent/ExplorerDrawerContent';
 import SearchDrawerContent from './DrawerContent/SearchDrawerContent';
 import GitDrawerContent from './DrawerContent/GitDrawerContent';
+import SettingsDrawerContent from './DrawerContent/SettingsDrawerContent';
 
 export function getDrawerContent(activeItem: string): React.ReactNode {
   switch (activeItem) {
@@ -13,6 +14,8 @@ export function getDrawerContent(activeItem: string): React.ReactNode {
     // return <GitDrawerContent />;
     case 'git':
       return <GitDrawerContent />;
+    case 'settings':
+      return <SettingsDrawerContent />;
     default:
       return null;
   }

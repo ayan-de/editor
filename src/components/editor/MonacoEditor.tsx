@@ -2,8 +2,10 @@
 
 import React from 'react';
 import Editor from '@monaco-editor/react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function MonacoEditor(): React.JSX.Element {
+  const { theme } = useTheme();
   return (
     <div className="h-full w-full">
       <Editor
@@ -12,7 +14,7 @@ export default function MonacoEditor(): React.JSX.Element {
         defaultLanguage="javascript"
         //   value={value}
         //   onChange={handleEditorChange}
-        theme="vs-dark"
+        theme={theme}
         options={{
           minimap: { enabled: true },
           fontSize: 20,

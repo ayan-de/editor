@@ -6,6 +6,8 @@ export function getDrawerTitle(activeItem: string): string {
       return 'Search';
     case 'git':
       return 'Source Control';
+    case 'settings':
+      return 'Settings';
     default:
       return 'Explorer';
   }

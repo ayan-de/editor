@@ -1,6 +1,6 @@
 import React from 'react';
 import { SidebarItem } from './types';
-import { Files, GitMerge, Search } from 'lucide-react';
+import { Files, GitMerge, Search, Settings } from 'lucide-react';
 
 const ExplorerIcon = () => <Files className="w-6 h-6" />;
 
@@ -29,5 +29,11 @@ export const sidebarItems: SidebarItem[] = [
     icon: <GitIcon />,
     onClick: () => {},
     tooltip: 'Source Control (Ctrl+Shift+G)',
+  },
+  {
+    id: 'settings',
+    name: 'Settings',
+    icon: <Settings />,
+    onClick: () => {},
   },
 ];
