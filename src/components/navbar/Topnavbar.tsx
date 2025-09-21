@@ -45,7 +45,6 @@ export default function TopNavbar(): React.JSX.Element {
             Help
           </Button>
         </div>
-        <PlaybackControls />
       </div>
 
       {/* Center section - Project title */}
@@ -55,6 +54,9 @@ export default function TopNavbar(): React.JSX.Element {
 
       {/* Right section - Window controls */}
       <div className="flex items-center space-x-1">
+        <div>
+          <PlaybackControls />
+        </div>
         {isActive && (
           <div className="space-y-2">
             <Button
