@@ -3,10 +3,10 @@
   "short_name": "editor",
   "description": "PWA code editor in nextjs",
   "start_url": "/",
-  "scope":".",
+  "scope": ".",
   "display": "standalone",
+  "theme_color": "#0d4c73",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "instagram.png",
