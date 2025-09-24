@@ -23,7 +23,8 @@ export type FileNode = FileNodeFile | FileNodeFolder;
 // Directory listing item for the new StorageAdapter
 export interface DirectoryItem {
   name: string;
-  type: 'file' | 'folder';
+  path: string;
+  type: 'file' | 'directory';
 }
 
 // Updated StorageAdapter interface using file paths

@@ -22,7 +22,7 @@ export default function Drawer({
         <h3 className="text-sm font-medium uppercase tracking-wide">{title}</h3>
         <div className="flex items-center space-x-1">
           {/* Header action buttons */}
-          {items.map((item) => (
+          {items?.map((item) => (
             <Button
               key={item.id}
               // variant="ghost"

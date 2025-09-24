@@ -1,5 +1,4 @@
 import { DirectoryItem } from './types';
-import './opfs-types';
 
 /**
  * OPFS File System Operations Helper
@@ -203,16 +202,18 @@ export async function listDirectoryInOPFS(
   const items: DirectoryItem[] = [];
 
   for await (const [name, handle] of targetDir.entries()) {
+    const itemPath = path ? `${path}/${name}` : name;
     items.push({
       name,
-      type: handle.kind === 'file' ? 'file' : 'folder',
+      path: itemPath,
+      type: handle.kind === 'file' ? 'file' : 'directory',
     });
   }
 
-  // Sort items: folders first, then files, both alphabetically
+  // Sort items: directories first, then files, both alphabetically
   return items.sort((a, b) => {
     if (a.type !== b.type) {
-      return a.type === 'folder' ? -1 : 1;
+      return a.type === 'directory' ? -1 : 1;
     }
     return a.name.localeCompare(b.name);
   });

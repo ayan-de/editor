@@ -5,13 +5,16 @@ import { PlaybackProvider } from '@/contexts/PlaybackContext';
 import EditorLayout from '@/components/layout/EditorLayout';
 import { EditorThemeProvider } from '@/contexts/EditorThemeContext';
 import { TweakCNThemeProvider } from '@/contexts/TweakCNThemeContext';
+import { FileSystemProvider } from '@/contexts/FileSystemContext';
 
 export default function Home() {
   return (
     <PlaybackProvider>
       <EditorThemeProvider>
         <TweakCNThemeProvider>
-          <EditorLayout />
+          <FileSystemProvider>
+            <EditorLayout />
+          </FileSystemProvider>
         </TweakCNThemeProvider>
       </EditorThemeProvider>
     </PlaybackProvider>

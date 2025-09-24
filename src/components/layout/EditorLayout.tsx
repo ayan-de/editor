@@ -7,12 +7,12 @@ import SideNavbar from '../navbar/Sidenavbar';
 import TopNavbar from '../navbar/Topnavbar';
 import FileNavbar from '../navbar/Filesnavbar';
 import Drawer from '../drawer/Drawer';
-import { getDrawerItems } from '../drawer/getDrawerItems';
 import { getDrawerTitle } from '../drawer/getDrawerTitle';
 import { getDrawerContent } from '../drawer/getDrawerContent';
 import { sidebarItems as defaultSidebarItems } from '../navbar/sidebarItems';
 import { SidebarItem } from '../navbar/types';
 import PlaybackBorderRing from './PlaybackBorderRing';
+import { useDrawerItems } from '@/hooks/useDrawerItems';
 
 // Dynamically import Xterm to prevent SSR issues
 const Xterm = dynamic(() => import('../terminal/Xterm'), {
@@ -29,6 +29,7 @@ export default function EditorLayout() {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(true);
   const [isTerminalOpen, setIsTerminalOpen] = useState<boolean>(true);
   const [terminalHeight, setTerminalHeight] = useState<number>(300);
+  const drawerItems = useDrawerItems(activeItem);
 
   const handleSidebarClick = (itemId: string) => {
     if (activeItem === itemId && isDrawerOpen) {
@@ -67,7 +68,7 @@ export default function EditorLayout() {
           <SideNavbar columns={sidebarItems} activeItemId={activeItem} />
           <Drawer
             title={getDrawerTitle(activeItem)}
-            items={getDrawerItems(activeItem)}
+            items={drawerItems}
             onClose={() => setIsDrawerOpen(false)}
             isOpen={isDrawerOpen}
           >
