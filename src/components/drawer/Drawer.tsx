@@ -29,7 +29,7 @@ export default function Drawer({
               size="sm"
               onClick={item.onClick}
               title={item.tooltip || item.name}
-              // className="h-6 w-6 p-0 z-10 relative"
+            // className="h-6 w-6 p-0 z-10 relative"
             >
               {item.icon}
             </Button>
@@ -39,7 +39,7 @@ export default function Drawer({
               variant="secondary"
               size="sm"
               onClick={onClose}
-              // className="h-6 w-6 p-0 z-10 relative hover:bg-destructive/10"
+            // className="h-6 w-6 p-0 z-10 relative hover:bg-destructive/10"
             >
               <X className="h-1 w-1" />
             </Button>

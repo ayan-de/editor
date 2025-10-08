@@ -10,6 +10,7 @@ interface UseFileSystemReturn {
   createFile: (path: string) => Promise<void>;
   createFolder: (path: string) => Promise<void>;
   deleteItem: (path: string) => Promise<void>;
+  getDirectoryContents: (path: string) => Promise<DirectoryItem[]>;
 }
 
 export function useFileSystem(rootPath: string = ''): UseFileSystemReturn {
@@ -74,6 +75,19 @@ export function useFileSystem(rootPath: string = ''): UseFileSystemReturn {
     [adapter, refreshFiles]
   );
 
+  const getDirectoryContents = useCallback(
+    async (path: string): Promise<DirectoryItem[]> => {
+      try {
+        return await adapter.list(path);
+      } catch (err) {
+        throw new Error(
+          err instanceof Error ? err.message : 'Failed to list directory'
+        );
+      }
+    },
+    [adapter]
+  );
+
   useEffect(() => {
     refreshFiles();
   }, [refreshFiles]);
@@ -86,5 +100,6 @@ export function useFileSystem(rootPath: string = ''): UseFileSystemReturn {
     createFile,
     createFolder,
     deleteItem,
+    getDirectoryContents,
   };
 }

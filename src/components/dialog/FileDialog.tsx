@@ -18,6 +18,7 @@ export function CreateItemDialog() {
     closeCreateDialog,
     createFile,
     createFolder,
+    selectedFolder,
   } = useFileSystemContext();
 
   const [name, setName] = useState('');
@@ -42,10 +43,15 @@ export function CreateItemDialog() {
           ? `${name}.txt`
           : name;
 
+      // Create full path including selected folder
+      const fullPath = selectedFolder 
+        ? `${selectedFolder}/${finalName}`
+        : finalName;
+
       if (createDialogType === 'file') {
-        await createFile(finalName);
+        await createFile(fullPath);
       } else {
-        await createFolder(finalName);
+        await createFolder(fullPath);
       }
 
       handleClose();
@@ -75,6 +81,11 @@ export function CreateItemDialog() {
         <DialogHeader>
           <DialogTitle>
             Create New {createDialogType === 'file' ? 'File' : 'Folder'}
+            {selectedFolder && (
+              <span className="text-sm text-muted-foreground font-normal">
+                {' '}in {selectedFolder}
+              </span>
+            )}
           </DialogTitle>
         </DialogHeader>
 

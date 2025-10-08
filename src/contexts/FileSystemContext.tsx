@@ -9,10 +9,15 @@ interface FileSystemContextType {
   createFile: (path: string) => Promise<void>;
   createFolder: (path: string) => Promise<void>;
   deleteItem: (path: string) => Promise<void>;
+  getDirectoryContents: (path: string) => Promise<any[]>;
   showCreateDialog: (type: 'file' | 'folder') => void;
   isCreateDialogOpen: boolean;
   createDialogType: 'file' | 'folder' | null;
   closeCreateDialog: () => void;
+  selectedFolder: string;
+  setSelectedFolder: (path: string) => void;
+  expandedFolders: Set<string>;
+  toggleFolder: (path: string) => void;
 }
 
 const FileSystemContext = createContext<FileSystemContextType | undefined>(
@@ -25,6 +30,8 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
   const [createDialogType, setCreateDialogType] = useState<
     'file' | 'folder' | null
   >(null);
+  const [selectedFolder, setSelectedFolder] = useState<string>('');
+  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set());
 
   const showCreateDialog = (type: 'file' | 'folder') => {
     setCreateDialogType(type);
@@ -36,6 +43,18 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
     setCreateDialogType(null);
   };
 
+  const toggleFolder = (path: string) => {
+    setExpandedFolders(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(path)) {
+        newSet.delete(path);
+      } else {
+        newSet.add(path);
+      }
+      return newSet;
+    });
+  };
+
   return (
     <FileSystemContext.Provider
       value={{
@@ -44,6 +63,10 @@ export function FileSystemProvider({ children }: { children: ReactNode }) {
         isCreateDialogOpen,
         createDialogType,
         closeCreateDialog,
+        selectedFolder,
+        setSelectedFolder,
+        expandedFolders,
+        toggleFolder,
       }}
     >
       {children}

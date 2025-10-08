@@ -4,41 +4,155 @@ import { Button } from '@/components/ui/button';
 import { useFileSystemContext } from '@/contexts/FileSystemContext';
 import {
   AlertCircle,
+  ChevronDown,
+  ChevronRight,
   File,
+  Folder,
   FolderOpen,
   Loader2,
   RefreshCw,
 } from 'lucide-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface FileItemProps {
   item: DirectoryItem;
-  onSelect?: (path: string) => void;
+  onFileSelect?: (path: string) => void;
+  onFolderSelect?: (path: string) => void;
   depth?: number;
+  isExpanded?: boolean;
+  onToggleExpanded?: (path: string) => void;
+  children?: DirectoryItem[];
 }
 
-function FileItem({ item, onSelect, depth = 0 }: FileItemProps) {
-  const Icon = item.type === 'directory' ? FolderOpen : File;
+function FileItem({ 
+  item, 
+  onFileSelect, 
+  onFolderSelect,
+  depth = 0, 
+  isExpanded = false,
+  onToggleExpanded,
+  children = []
+}: FileItemProps) {
+  const { selectedFolder } = useFileSystemContext();
+  const Icon = item.type === 'directory' 
+    ? isExpanded ? FolderOpen : Folder 
+    : File;
+  const hasChildren = item.type === 'directory';
+  const isSelected = selectedFolder === item.path;
+
+  const handleClick = () => {
+    if (item.type === 'directory') {
+      onToggleExpanded?.(item.path);
+      onFolderSelect?.(item.path);
+    } else {
+      onFileSelect?.(item.path);
+    }
+  };
 
   return (
-    <div
-      className="w-full flex items-center p-2 hover:bg-accent hover:text-accent-foreground rounded cursor-pointer"
-      style={{ marginLeft: `${depth * 16}px` }}
-      onClick={() => onSelect?.(item.path)}
-    >
-      <Icon className="mr-2 h-4 w-4" />
-      <span className="flex-1 truncate">{item.name}</span>
-    </div>
+    <>
+      <div
+        className={`w-full flex items-center p-1 hover:bg-accent hover:text-accent-foreground rounded cursor-pointer ${
+          isSelected ? 'bg-accent text-accent-foreground' : ''
+        }`}
+        style={{ marginLeft: `${depth * 16}px` }}
+        onClick={handleClick}
+      >
+        {hasChildren && (
+          <div className="mr-1">
+            {isExpanded ? (
+              <ChevronDown className="h-3 w-3" />
+            ) : (
+              <ChevronRight className="h-3 w-3" />
+            )}
+          </div>
+        )}
+        {!hasChildren && <div className="w-4" />}
+        <Icon className="mr-2 h-4 w-4" />
+        <span className="flex-1 truncate text-sm">{item.name}</span>
+      </div>
+      
+      {isExpanded && children.length > 0 && (
+        <div>
+          {children.map((child) => (
+            <NestedFileItem
+              key={child.path}
+              item={child}
+              onFileSelect={onFileSelect}
+              onFolderSelect={onFolderSelect}
+              depth={depth + 1}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
+function NestedFileItem({ 
+  item, 
+  onFileSelect, 
+  onFolderSelect,
+  depth 
+}: { 
+  item: DirectoryItem; 
+  onFileSelect?: (path: string) => void;
+  onFolderSelect?: (path: string) => void;
+  depth: number; 
+}) {
+  const { expandedFolders, toggleFolder, getDirectoryContents } = useFileSystemContext();
+  const [children, setChildren] = useState<DirectoryItem[]>([]);
+  const [loading, setLoading] = useState(false);
+  
+  const isExpanded = expandedFolders.has(item.path);
+
+  useEffect(() => {
+    if (isExpanded && item.type === 'directory') {
+      const loadChildren = async () => {
+        setLoading(true);
+        try {
+          const items = await getDirectoryContents(item.path);
+          setChildren(items);
+        } catch (error) {
+          console.error('Failed to load directory contents:', error);
+          setChildren([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+      loadChildren();
+    }
+  }, [isExpanded, item.path, getDirectoryContents]);
+
+  return (
+    <FileItem
+      item={item}
+      onFileSelect={onFileSelect}
+      onFolderSelect={onFolderSelect}
+      depth={depth}
+      isExpanded={isExpanded}
+      onToggleExpanded={toggleFolder}
+      children={children}
+    />
   );
 }
 
 export default function ExplorerDrawerContent() {
-  const { files, loading, error, refreshFiles } = useFileSystemContext();
+  const { files, loading, error, refreshFiles, setSelectedFolder, selectedFolder } = useFileSystemContext();
 
   const handleFileSelect = (path: string) => {
     // Handle file selection - could emit event or call callback
     console.log('Selected file:', path);
+    // Clear selected folder since we selected a file
+    setSelectedFolder('');
   };
+
+  const handleFolderSelect = (path: string) => {
+    // Set the selected folder for new file/folder creation
+    setSelectedFolder(path);
+    console.log('Selected folder:', path);
+  };
+
   if (loading) {
     return (
       <div className="w-60 text-sm text-muted-foreground">
@@ -92,18 +206,39 @@ export default function ExplorerDrawerContent() {
       <div className="w-60 text-sm text-muted-foreground">
         <div className="text-xs text-muted-foreground uppercase tracking-wide mb-2 flex items-center justify-between">
           <span>Explorer</span>
-          <Button
-            onClick={refreshFiles}
-            className="p-1 hover:bg-accent rounded"
-            title="Refresh"
-          >
-            <RefreshCw className="h-3 w-3" />
-          </Button>
+          <div className="flex items-center gap-1">
+            {selectedFolder && (
+              <Button
+                onClick={() => setSelectedFolder('')}
+                className="p-1 hover:bg-accent rounded"
+                title="Clear Selection"
+                variant="ghost"
+                size="sm"
+              >
+                <span className="text-xs">Clear</span>
+              </Button>
+            )}
+            <Button
+              onClick={refreshFiles}
+              className="p-1 hover:bg-accent rounded"
+              title="Refresh"
+              variant="ghost"
+              size="sm"
+            >
+              <RefreshCw className="h-3 w-3" />
+            </Button>
+          </div>
         </div>
 
         <div className="space-y-1">
           {files.map((item) => (
-            <FileItem key={item.path} item={item} onSelect={handleFileSelect} />
+            <NestedFileItem 
+              key={item.path} 
+              item={item} 
+              onFileSelect={handleFileSelect}
+              onFolderSelect={handleFolderSelect}
+              depth={0}
+            />
           ))}
         </div>
       </div>
